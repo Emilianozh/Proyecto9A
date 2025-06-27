@@ -1,0 +1,2 @@
+   git config --global user.name "emilianozh"
+   git config --global user.email "20223tn117@utez.edu.mx"

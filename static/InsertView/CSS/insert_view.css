@@ -1,0 +1,93 @@
+/* Botón de regreso arriba a la izquierda con estilo de botón verde */
+.btn-back {
+    display: inline-block;
+    margin: 24px 0 0 24px;
+    padding: 10px 24px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.2s, color 0.2s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+.btn-back:hover {
+    background: #218838;
+    color: #fff;
+}
+/* Centrar el título principal */
+h2 {
+    text-align: center;
+    margin-bottom: 32px;
+}
+body {
+    background-color: #2c2c2c; /* Gris oscuro */
+    font-family: Arial, sans-serif;
+    color: #f8f9fa; /* Letras gris muy claro/blanco */
+}
+
+form {
+    background: #44484d; /* Gris medianamente oscuro */
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #fffffffd;
+    padding: 32px 24px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    color: #f8f9fa; /* Letras gris muy claro/blanco */
+}
+label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+    color: #f8f9fa;
+}
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px 18px;
+    border: 1px solid #bbb;
+    border-radius: 30px;
+    outline: none;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    font-size: 1em;
+    background: #f8f9fa;
+    color: #222; /* Letras oscuras en inputs */
+    transition: border 0.2s;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border: 1.5px solid #28a745;
+    background: #fff;
+}
+input[type="file"] {
+    border-radius: 30px;
+    padding: 8px 0;
+    background: transparent;
+    color: #222;
+    margin-bottom: 16px;
+    width: 100%;
+}
+button[type="submit"] {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 30px;
+    background: #28a745;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button[type="submit"]:hover {
+    background: #218838;
+}
