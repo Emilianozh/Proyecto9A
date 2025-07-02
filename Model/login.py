@@ -1,5 +1,6 @@
 from flask import request, session, render_template, redirect, url_for
 from Model.db import get_db_connection
+from Model.utils import crear_directorio_usuario
 
 def login():
     mail = request.form['mail']
@@ -12,6 +13,7 @@ def login():
     sesion = False
     existe = False
     admin = False
+    usuario_data = None
     for x in range(0,len(value)):
         if value[x]["contraseña"] == password and value[x]["correo"] == mail:
             existe = True
@@ -20,6 +22,7 @@ def login():
             session['id_usuario'] = value[x]["id_usuario"]
             session['nombre_usuario'] = value[x]["nombre"]
             session['apellido_usuario'] = value[x]["apellido"]
+            usuario_data = value[x]
             if value[x]["tipo_usuario"]==True:
                 admin = True
                 session['correo'] = mail
@@ -29,6 +32,8 @@ def login():
             print("")
 
     if existe == True:
+        if usuario_data:
+            crear_directorio_usuario(usuario_data)
         if admin == True:
             return redirect(url_for('admin_view'))
         else:
