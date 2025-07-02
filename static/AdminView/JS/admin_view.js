@@ -20,9 +20,28 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('closeModal').onclick = function() {
         document.getElementById('editModal').style.display = 'none';
     };
-    // Save changes (for now, just close modal)
+    // Save changes (envía los datos por AJAX a /editar)
     document.getElementById('saveEdit').onclick = function() {
-        // Aquí puedes agregar lógica para guardar los cambios
+        const id = document.getElementById('modal-id').value;
+        const nombre = document.getElementById('modal-nombre').value;
+        const stock = document.getElementById('modal-cantidad').value;
+        const precio = document.getElementById('modal-precio').value;
+
+        fetch('/editar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_articulo: id, nombre, stock, precio })
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Recarga la página para ver los cambios
+            } else {
+                alert('Error al actualizar');
+            }
+        });
+
         document.getElementById('editModal').style.display = 'none';
     };
     // Close modal when clicking outside

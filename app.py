@@ -8,6 +8,8 @@ from Model.login import login
 from Model.insert import insert_data as insert
 from Model.db import get_db_connection
 from Model.admin_view import admin_view_func
+from Model.eliminar import eliminar_articulo
+from Model.editar import editar_articulo
 
 
 
@@ -35,6 +37,14 @@ def login_route():
 @app.route('/insertar', methods=['POST'])
 def insertar_route():
     return insert()
+
+@app.route('/eliminar', methods=['POST'])
+def eliminar_route():
+    return eliminar_articulo()
+
+@app.route('/editar', methods=['POST'])
+def editar_route():
+    return editar_articulo()
 
 if __name__ == '__main__':
     app.run(debug=True)
