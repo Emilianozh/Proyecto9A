@@ -81,4 +81,4 @@ def callback():
     if user_db['tipo_usuario'] == 1:
         return redirect(url_for("admin_view"))
     else:
-        return render_template('Module/UserView/View/user_view.html')
+        return redirect(url_for("user_view"))
