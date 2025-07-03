@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/static/InsertView/CSS/insert_view.css">
+</head>
+<body>
+    <a href="/admin_view" class="btn-back">&larr; Regresar</a>
+    <h2>Insertar Producto</h2>
+    <form action="/insertar" method="POST" enctype="multipart/form-data" style="max-width:400px;margin:auto;">
+        <div style="margin-bottom:10px;">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" required style="width:90%;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label for="precio">Precio:</label><br>
+            <input type="number" id="precio" name="precio" step="0.01" required style="width:90%;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label for="stock">Stock:</label><br>
+            <input type="number" id="stock" name="stock" required style="width:90%;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label for="descripcion">Descripción:</label><br>
+            <textarea id="descripcion" name="descripcion" rows="3" style="width:90%;"></textarea>
+        </div>
+        <div style="margin-bottom:10px;">
+            <label for="imagen">Imagen:</label><br>
+            <input type="file" id="imagen" name="imagen" accept="image/*" required>
+        </div>
+        <button type="submit">Insertar</button>
+    </form>
+</body>
+</html>
