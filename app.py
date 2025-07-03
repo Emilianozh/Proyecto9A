@@ -17,13 +17,9 @@ import json
 
 
 
-
 app = Flask(__name__)
 
 app.secret_key = 'supersecretkey'  # Necesario para sesiones
-
-# Registro del blueprint de Google login
-
 
 @app.route('/')
 def index():
