@@ -13,11 +13,13 @@ from Model.editar import editar_articulo
 from Model.utils import crear_directorio_usuario
 import os
 import json
-
+from Model.login_google import google_bp
 
 
 
 app = Flask(__name__)
+
+app.register_blueprint(google_bp)
 
 app.secret_key = 'supersecretkey'  # Necesario para sesiones
 
