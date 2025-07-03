@@ -37,6 +37,7 @@ def login():
         if admin == True:
             return redirect(url_for('admin_view'))
         else:
-            return render_template('Module/UserView/View/user_view.html')
+            return redirect(url_for('user_view'))
     else:
-        return render_template('index.html')
+        error = 'Correo o contraseña incorrectos.'
+        return render_template('Module/Login/View/login.html', error=error)
