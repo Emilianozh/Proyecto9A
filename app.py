@@ -17,6 +17,8 @@ from Model.login_google import google_bp
 from Model.user_view import user_view_func
 import base64
 from Model.editar_usuario import editar_usuario_func
+from Model.detalle_articulo import detalle_articulo_func
+from Model.comprar_articulo import comprar_articulo_func
 
 
 
@@ -66,6 +68,14 @@ def logout():
 @app.route('/editar_usuario', methods=['POST'])
 def editar_usuario():
     return editar_usuario_func()
+
+@app.route('/articulo/<int:id_articulo>', methods=['GET'])
+def detalle_articulo(id_articulo):
+    return detalle_articulo_func(id_articulo)
+
+@app.route('/comprar_articulo/<int:id_articulo>', methods=['POST'])
+def comprar_articulo(id_articulo):
+    return comprar_articulo_func(id_articulo)
 
 def crear_directorio_usuario(usuario):
     # Obtiene el escritorio del usuario
