@@ -16,6 +16,7 @@ import json
 from Model.login_google import google_bp
 from Model.user_view import user_view_func
 import base64
+from Model.editar_usuario import editar_usuario_func
 
 
 
@@ -61,6 +62,10 @@ def user_view():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+@app.route('/editar_usuario', methods=['POST'])
+def editar_usuario():
+    return editar_usuario_func()
 
 def crear_directorio_usuario(usuario):
     # Obtiene el escritorio del usuario
