@@ -32,7 +32,7 @@
               <a class="nav-link" href="#">Historial</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Editar usuario</a>
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">Editar usuario</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-danger" href="/logout">Cerrar sesión</a>
@@ -42,8 +42,50 @@
       </div>
     </nav>
     <div class="container mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         <h1>Bienvenido, usuario!</h1>
-        <p>Has iniciado sesión correctamente con Google.</p>
+        <!-- Modal para editar usuario -->
+        <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editarUsuarioModalLabel">Editar información de usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form method="POST" action="/editar_usuario">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ session['nombre_usuario'] }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" value="{{ session['apellido_usuario'] }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" name="correo" value="{{ session['correo'] }}" required>
+                  </div>
+                  <!-- Puedes agregar más campos aquí si lo deseas -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Fin modal -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for articulo in articulos %}
             <div class="col d-flex align-items-stretch">
