@@ -89,6 +89,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for articulo in articulos %}
             <div class="col d-flex align-items-stretch">
+                <a href="/articulo/{{ articulo.id_articulo }}" class="text-decoration-none text-dark w-100">
                 <div class="card h-100 w-100">
                     {% if articulo.imagen %}
                     <img src="data:image/jpeg;base64,{{ articulo.imagen|b64encode }}" class="card-img-top" alt="Imagen del artículo">
@@ -100,6 +101,7 @@
                         <p class="card-text">Precio: ${{ articulo.precio }}</p>
                     </div>
                 </div>
+                </a>
             </div>
             {% endfor %}
         </div>
