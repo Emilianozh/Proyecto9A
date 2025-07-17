@@ -28,6 +28,16 @@
             <label for="imagen">Imagen:</label><br>
             <input type="file" id="imagen" name="imagen" accept="image/*" required>
         </div>
+        <div style="margin-bottom:10px;">
+            <label for="tipo_articulo">Tipo de Artículo:</label><br>
+            <select id="tipo_articulo" name="tipo_articulo" required style="width:90%;">
+                <option value="">Seleccione un tipo</option>
+                <option value="tecnologico">Tecnológico</option>
+                <option value="ropa">Ropa</option>
+                <option value="accesorios">Accesorios</option>
+                <option value="muebles">Muebles</option>
+            </select>
+        </div>
         <button type="submit">Insertar</button>
     </form>
 </body>

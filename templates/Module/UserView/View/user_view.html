@@ -29,7 +29,7 @@
               <a class="nav-link" href="#">Carrito</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Historial</a>
+              <a class="nav-link" href="/historial">Historial</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">Editar usuario</a>
@@ -42,6 +42,28 @@
       </div>
     </nav>
     <div class="container mt-5">
+        <div class="mb-4 d-flex justify-content-center gap-4">
+            <a href="/user_view" class="text-decoration-none text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Todos" width="110" height="110">
+                <div class="fw-bold mt-2" style="font-size:1.2rem;">Todos</div>
+            </a>
+            <a href="/user_view?tipo_articulo=tecnologico" class="text-decoration-none text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Tecnológico" width="110" height="110">
+                <div class="fw-bold mt-2" style="font-size:1.2rem;">Tecnológico</div>
+            </a>
+            <a href="/user_view?tipo_articulo=ropa" class="text-decoration-none text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" alt="Ropa" width="110" height="110">
+                <div class="fw-bold mt-2" style="font-size:1.2rem;">Ropa</div>
+            </a>
+            <a href="/user_view?tipo_articulo=accesorios" class="text-decoration-none text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Accesorios" width="110" height="110">
+                <div class="fw-bold mt-2" style="font-size:1.2rem;">Accesorios</div>
+            </a>
+            <a href="/user_view?tipo_articulo=muebles" class="text-decoration-none text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/2933/2933825.png" alt="Muebles" width="110" height="110">
+                <div class="fw-bold mt-2" style="font-size:1.2rem;">Muebles</div>
+            </a>
+        </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
@@ -99,6 +121,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ articulo.nombre_articulo }}</h5>
                         <p class="card-text">Precio: ${{ articulo.precio }}</p>
+                        <p class="card-text"><span class="fw-bold">Tipo:</span> {{ articulo.tipo_articulo|capitalize }}</p>
                     </div>
                 </div>
                 </a>
