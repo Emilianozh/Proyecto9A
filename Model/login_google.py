@@ -5,9 +5,9 @@ import os
 import json
 from Model.db import get_db_connection, close_db_connection
 
-# Configuración (usar variables de entorno para producción/seguridad)
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+# Configuración (puedes poner tus credenciales aquí para pruebas locales)
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID") or "AQUI_TU_CLIENT_ID"
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET") or "AQUI_TU_CLIENT_SECRET"
 GOOGLE_DISCOVERY_URL = os.environ.get("GOOGLE_DISCOVERY_URL", "https://accounts.google.com/.well-known/openid-configuration")
 
 google_bp = Blueprint('google_bp', __name__)
