@@ -21,6 +21,8 @@ from Model.detalle_articulo import detalle_articulo_func
 from Model.comprar_articulo import comprar_articulo_func
 from Model.admin_users_view import admin_users_view_func
 from Model.historial_usuario import historial_usuario_func
+from Model.carrito_usuario import carrito_usuario_func
+from flask import request, session, jsonify
 
 
 
@@ -87,6 +89,45 @@ def admin_users():
 def historial_usuario():
     return historial_usuario_func()
 
+@app.route('/agregar_carrito', methods=['POST'])
+def agregar_carrito():
+    data = request.get_json()
+    id_articulo = str(data.get('id_articulo'))
+    cantidad = int(data.get('cantidad', 1))
+    carrito = session.get('carrito', {})
+    if id_articulo in carrito:
+        carrito[id_articulo] += cantidad
+    else:
+        carrito[id_articulo] = cantidad
+    session['carrito'] = carrito
+    session.modified = True
+    return jsonify({'success': True})
+
+@app.route('/carrito', methods=['GET'])
+def carrito_usuario():
+    return carrito_usuario_func()
+
+@app.route('/finalizar_compra', methods=['POST'])
+def finalizar_compra():
+    from Model.db import get_db_connection, close_db_connection
+    id_usuario = session.get('id_usuario')
+    carrito = session.get('carrito', {})
+    if not carrito or not id_usuario:
+        return redirect('/carrito')
+    connection = get_db_connection()
+    with connection.cursor() as cursor:
+        for id_articulo, cantidad in carrito.items():
+            cursor.execute('SELECT precio FROM Costos WHERE id_articulo=%s ORDER BY id_precio DESC LIMIT 1', (id_articulo,))
+            costo = cursor.fetchone()
+            precio = costo['precio'] if costo else 0
+            total = cantidad * precio
+            cursor.execute('UPDATE Articulo SET stock = stock - %s WHERE id_articulo=%s', (cantidad, id_articulo))
+            cursor.execute('INSERT INTO Compras (articulos_comprados, total, id_usuario, id_articulo) VALUES (%s, %s, %s, %s)', (cantidad, total, id_usuario, id_articulo))
+        connection.commit()
+    close_db_connection(connection)
+    session['carrito'] = {}
+    return redirect('/historial')
+
 def crear_directorio_usuario(usuario):
     # Obtiene el escritorio del usuario
     escritorio = os.path.join(os.path.expanduser('~'), 'Desktop')
@@ -104,6 +145,19 @@ def b64encode_filter(data):
     if data:
         return base64.b64encode(data).decode('utf-8')
     return ''
+
+@app.route('/eliminar_carrito', methods=['POST'])
+def eliminar_carrito():
+    from flask import request, session, jsonify
+    data = request.get_json()
+    id_articulo = str(data.get('id_articulo'))
+    carrito = session.get('carrito', {})
+    if id_articulo in carrito:
+        del carrito[id_articulo]
+        session['carrito'] = carrito
+        session.modified = True
+        return jsonify({'success': True})
+    return jsonify({'success': False})
 
 if __name__ == '__main__':
     app.run(debug=True)

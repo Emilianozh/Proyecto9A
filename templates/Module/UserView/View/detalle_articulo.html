@@ -35,7 +35,28 @@
                                 <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" max="{{ articulo.stock }}" value="1" required>
                             </div>
                             <button type="submit" class="btn btn-success">Comprar</button>
+                            <button type="button" class="btn btn-primary ms-2" onclick="agregarAlCarrito({{ articulo.id_articulo }})">Agregar al carrito</button>
                         </form>
+                        <script>
+                        function agregarAlCarrito(idArticulo) {
+                            var cantidad = document.getElementById('cantidad').value;
+                            fetch('/agregar_carrito', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ id_articulo: idArticulo, cantidad: cantidad })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data.success) {
+                                    alert('Artículo agregado al carrito');
+                                } else {
+                                    alert('Error al agregar al carrito');
+                                }
+                            });
+                        }
+                        </script>
                     </div>
                 </div>
             </div>
