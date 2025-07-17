@@ -31,7 +31,8 @@ CREATE TABLE Articulo(
 			nombre_articulo VARCHAR(50),
 			stock INT,
             imagen VARCHAR(50),
-            descripcion longblob
+            descripcion longblob,
+            tipo_articulo VARCHAR(50) -- Nuevo campo para el tipo de artículo
 );
 
 CREATE TABLE Estado_Articulo(

@@ -20,6 +20,7 @@ from Model.editar_usuario import editar_usuario_func
 from Model.detalle_articulo import detalle_articulo_func
 from Model.comprar_articulo import comprar_articulo_func
 from Model.admin_users_view import admin_users_view_func
+from Model.historial_usuario import historial_usuario_func
 
 
 
@@ -81,6 +82,10 @@ def comprar_articulo(id_articulo):
 @app.route('/admin_users', methods=['GET'])
 def admin_users():
     return admin_users_view_func()
+
+@app.route('/historial', methods=['GET'])
+def historial_usuario():
+    return historial_usuario_func()
 
 def crear_directorio_usuario(usuario):
     # Obtiene el escritorio del usuario

@@ -7,12 +7,13 @@ def insert_data():
         precio = request.form['precio']
         stock = request.form['stock']
         descripcion = request.form['descripcion']
+        tipo_articulo = request.form['tipo_articulo']  # Nuevo campo
         imagen_file = request.files['imagen']
         imagen = imagen_file.read()  # Lee la imagen como binario
         connection = get_db_connection()
         with connection.cursor() as cursor:
-            cursor.execute('INSERT INTO Articulo (nombre_articulo, stock, imagen, descripcion) VALUES (%s,%s,%s,%s)',(nombre, stock, imagen, descripcion))
-            cursor.execute('SELECT id_articulo FROM Articulo')
+            cursor.execute('INSERT INTO Articulo (nombre_articulo, stock, imagen, descripcion, tipo_articulo) VALUES (%s,%s,%s,%s,%s)',(nombre, stock, imagen, descripcion, tipo_articulo))
+            cursor.execute('SELECT id_articulo FROM Articulo ORDER BY id_articulo DESC LIMIT 1')
             value = cursor.fetchone() 
             x = value["id_articulo"]
             x = int(x)
