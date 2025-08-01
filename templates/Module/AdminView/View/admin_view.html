@@ -5,8 +5,6 @@
     <title>Bienvenido Administrador</title>
     <link rel="stylesheet" href="/static/AdminView/CSS/admin_view.css">
     <link rel="stylesheet" href="/static/AdminView/CSS/admin_view_css.css">
-
-    <script src="/static/AdminView/JS/admin_view.js"></script>
 </head>
 <body>
     <div id="editModal" class="modal">
@@ -30,10 +28,11 @@
         <div class="nav-links">
             <a href="/admin_view">Inicio</a>
             <a href="/insert_view">Insertar</a>
-            <a href="#">Ver Usuarios</a>
+            <a href="/admin_users">Ver Usuarios</a>
             <a href="/logout" class="logout">Cerrar Sesion</a>
         </div>
     </div>
+    {% block content %}
     <h1 style="text-align:center;">Bienvenido Administrador</h1>
     <table>
         <thead>
@@ -72,5 +71,7 @@
             {% endfor %}
         </tbody>
     </table>
+    {% endblock %}
+    <script src="/static/AdminView/JS/admin_view.js"></script>
 </body>
 </html>

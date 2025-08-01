@@ -11,7 +11,7 @@ CREATE TABLE Usuarios (
 			direccion VARCHAR(150),
 			teléfono VARCHAR(50),
 			correo VARCHAR(50) UNIQUE,
-			contraseña VARCHAR(50),
+			contraseña VARCHAR(128),
 			articulos_comprados INT
 
 );
@@ -31,7 +31,9 @@ CREATE TABLE Articulo(
 			nombre_articulo VARCHAR(50),
 			stock INT,
             imagen VARCHAR(50),
-            descripcion longblob
+            descripcion longblob,
+            tipo_articulo VARCHAR(50), -- Nuevo campo para el tipo de artículo
+            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Estado_Articulo(

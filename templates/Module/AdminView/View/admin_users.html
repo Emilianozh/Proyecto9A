@@ -1,0 +1,29 @@
+{% extends 'Module/AdminView/View/admin_view.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Usuarios Registrados</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Tipo de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id_usuario }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td>{% if usuario.tipo_usuario == 1 %}Administrador{% else %}Usuario{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="/static/AdminView/JS/admin_users.js"></script>
+{% endblock %}
