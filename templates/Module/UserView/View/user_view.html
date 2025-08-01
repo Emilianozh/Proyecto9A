@@ -119,7 +119,12 @@
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="Sin imagen">
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ articulo.nombre_articulo }}</h5>
+                        <h5 class="card-title d-flex align-items-center">
+                            {{ articulo.nombre_articulo }}
+                            {% if articulo.fecha_creacion and (ahora - articulo.fecha_creacion).total_seconds() < 300 %}
+                                <span class="badge bg-success ms-2" id="badge-nuevo-{{ articulo.id_articulo }}">Nuevo</span>
+                            {% endif %}
+                        </h5>
                         <p class="card-text">Precio: ${{ articulo.precio }}</p>
                         <p class="card-text"><span class="fw-bold">Tipo:</span> {{ articulo.tipo_articulo|capitalize }}</p>
                     </div>
@@ -130,5 +135,11 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/UserView/JS/user_view.js"></script>
+    <script>
+    if (window.performance && window.performance.navigation.type === 2) {
+        window.location.reload();
+    }
+    </script>
 </body>
 </html>

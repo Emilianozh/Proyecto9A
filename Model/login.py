@@ -1,6 +1,10 @@
 from flask import request, session, render_template, redirect, url_for
 from Model.db import get_db_connection
-from Model.utils import crear_directorio_usuario
+import hashlib
+import re
+
+def is_sha256(s):
+    return bool(re.fullmatch(r'[a-fA-F0-9]{64}', s))
 
 def login():
     mail = request.form['mail']
@@ -15,7 +19,13 @@ def login():
     admin = False
     usuario_data = None
     for x in range(0,len(value)):
-        if value[x]["contraseña"] == password and value[x]["correo"] == mail:
+        db_pass = value[x]["contraseña"]
+        # Si la contraseña guardada es un hash sha256, comparar con el hash
+        if is_sha256(db_pass):
+            password_check = hashlib.sha256(password.encode()).hexdigest()
+        else:
+            password_check = password
+        if db_pass == password_check and value[x]["correo"] == mail:
             existe = True
             sesion = True
             session['correo'] = mail
@@ -32,8 +42,7 @@ def login():
             print("")
 
     if existe == True:
-        if usuario_data:
-            crear_directorio_usuario(usuario_data)
+        # Ya no crear carpeta al iniciar sesión
         if admin == True:
             return redirect(url_for('admin_view'))
         else:
