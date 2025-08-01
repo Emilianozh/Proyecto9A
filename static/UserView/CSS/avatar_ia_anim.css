@@ -1,0 +1,11 @@
+.avatar-ia-anim {
+  animation: avatar-grok-bounce 1.2s infinite alternate;
+  box-shadow: 0 0 0 0 #0d6efd44;
+  transition: box-shadow 0.3s;
+}
+@keyframes avatar-grok-bounce {
+  0%   { transform: scale(1) rotate(-5deg); box-shadow: 0 0 0 0 #0d6efd44; }
+  30%  { transform: scale(1.08) rotate(5deg); box-shadow: 0 0 16px 4px #0d6efd44; }
+  60%  { transform: scale(0.97) rotate(-3deg); box-shadow: 0 0 8px 2px #0d6efd22; }
+  100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 0 0 #0d6efd00; }
+}

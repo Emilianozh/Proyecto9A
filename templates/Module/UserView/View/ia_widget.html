@@ -1,0 +1,31 @@
+<div class="card mt-4">
+  <div class="card-header bg-primary text-white">Asistente Virtual</div>
+  <div class="card-body">
+    <div class="mb-2">
+      <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
+    </div>
+    <button class="btn btn-primary mb-2" onclick="enviarMensajeIA()">Enviar</button>
+    <div id="ia-response" class="alert alert-info mt-2" style="display:none;"></div>
+    <div id="loading-ia" style="display:none;">
+      <img src="https://loading.io/assets/img/loading.gif" alt="Cargando..." width="40" /> Pensando...
+    </div>
+  </div>
+</div>
+<script>
+function enviarMensajeIA() {
+    var input = document.getElementById('user-input').value;
+    document.getElementById('loading-ia').style.display = 'block';
+    document.getElementById('ia-response').style.display = 'none';
+    fetch('/ia_chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message: input})
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('ia-response').innerText = data.response;
+        document.getElementById('ia-response').style.display = 'block';
+        document.getElementById('loading-ia').style.display = 'none';
+    });
+}
+</script>

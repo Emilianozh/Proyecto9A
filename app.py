@@ -23,6 +23,8 @@ from Model.calificar_articulo import calificar_articulo_func
 from Model.finalizar_compra import finalizar_compra_func
 from Model.eliminar_carrito import eliminar_carrito_func
 from Model.registro import registro_func
+from Model.ia_respuestas import ia_responder
+import openai
 
 
 
@@ -160,6 +162,12 @@ def crear_directorio_usuario(usuario):
     with open(ruta_archivo, 'w', encoding='utf-8') as f:
         f.write(json.dumps(usuario, ensure_ascii=False, indent=4))
     return ruta_archivo
+
+@app.route('/ia_chat', methods=['POST'])
+def ia_chat():
+    user_msg = request.json.get('message')
+    ia_text = ia_responder(user_msg)
+    return jsonify({'response': ia_text})
 
 @app.after_request
 def add_header(response):
