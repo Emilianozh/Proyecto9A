@@ -9,7 +9,7 @@ from Model.db import get_db_connection
 from Model.admin_view import admin_view_func
 from Model.eliminar import eliminar_articulo
 from Model.editar import editar_articulo
-from Model.utils import crear_directorio_usuario
+from Model.utils_extra import crear_directorio_usuario_func
 from Model.login_google import google_bp
 from Model.user_view import user_view_func
 from Model.editar_usuario import editar_usuario_func
@@ -109,19 +109,10 @@ def admin_users():
 def historial_usuario():
     return historial_usuario_func()
 
-@app.route('/agregar_carrito', methods=['POST'])
 def agregar_carrito():
+    from Model.carrito import agregar_carrito_func
     data = request.get_json()
-    id_articulo = str(data.get('id_articulo'))
-    cantidad = int(data.get('cantidad', 1))
-    carrito = session.get('carrito', {})
-    if id_articulo in carrito:
-        carrito[id_articulo] += cantidad
-    else:
-        carrito[id_articulo] = cantidad
-    session['carrito'] = carrito
-    session.modified = True
-    return jsonify({'success': True})
+    return agregar_carrito_func(data)
 
 @app.route('/carrito', methods=['GET'])
 @login_required
@@ -152,27 +143,11 @@ def b64encode_filter(data):
     if data:
         return base64.b64encode(data).decode('utf-8')
     return ''
-
-def crear_directorio_usuario(usuario):
-    # Obtiene el escritorio del usuario
-    escritorio = os.path.join(os.path.expanduser('~'), 'Desktop')
-    nombre_carpeta = f"Usuario_{usuario['id_usuario']}"
-    ruta_carpeta = os.path.join(escritorio, nombre_carpeta)
-    if not os.path.exists(ruta_carpeta):
-        os.makedirs(ruta_carpeta)
-    ruta_archivo = os.path.join(ruta_carpeta, 'datos_usuario.txt')
-    with open(ruta_archivo, 'w', encoding='utf-8') as f:
-        f.write(json.dumps(usuario, ensure_ascii=False, indent=4))
-    return ruta_archivo
-
-
-
 # Ruta para chat Gemini
+from Model.gemini_chat import gemini_chat_func
 @app.route('/gemini_chat', methods=['POST'])
 def gemini_chat():
-    user_msg = request.json.get('message')
-    ia_text = get_gemini_response(user_msg)
-    return jsonify({'response': ia_text})
+    return gemini_chat_func()
 
 @app.after_request
 def add_header(response):
