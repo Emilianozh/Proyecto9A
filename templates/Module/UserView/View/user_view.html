@@ -149,39 +149,7 @@
                 </div>
             </div>
         </div>
-        <script>
-        function toggleIAChat() {
-            var body = document.getElementById('ia-chat-body');
-            var icon = document.getElementById('ia-toggle-icon');
-            if (body.style.display === 'none') {
-                body.style.display = 'block';
-                icon.innerHTML = '&#9650;';
-            } else {
-                body.style.display = 'none';
-                icon.innerHTML = '&#9660;';
-            }
-        }
-        function enviarMensajeIA() {
-            var input = document.getElementById('user-input').value;
-            document.getElementById('loading-ia').style.display = 'block';
-            document.getElementById('ia-response').style.display = 'none';
-            fetch('/ia_chat', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({message: input})
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('ia-response').innerText = data.response;
-                document.getElementById('ia-response').style.display = 'block';
-                document.getElementById('loading-ia').style.display = 'none';
-            });
-        }
-        // Inicialmente mostrar el chat desplegado
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('ia-chat-body').style.display = 'block';
-        });
-        </script>
+        <script src="/static/UserView/JS/ia_chat.js"></script>
         <!-- Fin Chat IA desplegable -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>

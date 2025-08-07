@@ -4,7 +4,7 @@ import hashlib
 import re
 
 def is_sha256(s):
-    return bool(re.fullmatch(r'[a-fA-F0-9]{64}', s))
+    return isinstance(s, str) and bool(re.fullmatch(r'[a-fA-F0-9]{64}', s))
 
 def login():
     mail = request.form['mail']

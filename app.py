@@ -23,7 +23,9 @@ from Model.calificar_articulo import calificar_articulo_func
 from Model.finalizar_compra import finalizar_compra_func
 from Model.eliminar_carrito import eliminar_carrito_func
 from Model.registro import registro_func
-from Model.ia_respuestas import ia_responder
+
+## from Model.ia_respuestas import ia_responder
+from Model.gemini import get_gemini_response
 import openai
 
 
@@ -163,10 +165,13 @@ def crear_directorio_usuario(usuario):
         f.write(json.dumps(usuario, ensure_ascii=False, indent=4))
     return ruta_archivo
 
-@app.route('/ia_chat', methods=['POST'])
-def ia_chat():
+
+
+# Ruta para chat Gemini
+@app.route('/gemini_chat', methods=['POST'])
+def gemini_chat():
     user_msg = request.json.get('message')
-    ia_text = ia_responder(user_msg)
+    ia_text = get_gemini_response(user_msg)
     return jsonify({'response': ia_text})
 
 @app.after_request
