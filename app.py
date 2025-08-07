@@ -114,6 +114,11 @@ def agregar_carrito():
     data = request.get_json()
     return agregar_carrito_func(data)
 
+# Ruta para agregar al carrito
+@app.route('/agregar_carrito', methods=['POST'])
+def agregar_carrito_route():
+    return agregar_carrito()
+
 @app.route('/carrito', methods=['GET'])
 @login_required
 def carrito_usuario():
