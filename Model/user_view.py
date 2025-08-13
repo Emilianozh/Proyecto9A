@@ -17,8 +17,10 @@ def user_view_func():
                               LEFT JOIN Costos c ON a.id_articulo = c.id_articulo''')
         articulos = cursor.fetchall()
     connection.close()
+    # Filtrar artículos con stock > 0
+    articulos_stock = [a for a in articulos if a['stock'] and a['stock'] > 0]
     ahora = datetime.now()
-    nuevos = [a for a in articulos if a['fecha_creacion'] and (ahora - a['fecha_creacion']).total_seconds() < 300]
-    no_nuevos = [a for a in articulos if not (a['fecha_creacion'] and (ahora - a['fecha_creacion']).total_seconds() < 300)]
+    nuevos = [a for a in articulos_stock if a['fecha_creacion'] and (ahora - a['fecha_creacion']).total_seconds() < 300]
+    no_nuevos = [a for a in articulos_stock if not (a['fecha_creacion'] and (ahora - a['fecha_creacion']).total_seconds() < 300)]
     articulos_ordenados = nuevos + no_nuevos
     return render_template('Module/UserView/View/user_view.html', articulos=articulos_ordenados, ahora=ahora)

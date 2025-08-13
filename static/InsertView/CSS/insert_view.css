@@ -1,35 +1,73 @@
-/* Botón de regreso arriba a la izquierda con estilo de botón verde */
-.btn-back {
-    display: inline-block;
-    margin: 24px 0 0 24px;
-    padding: 10px 24px;
-    background: #28a745;
-    color: #fff;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 2px 8px #0002;
-    transition: background 0.2s, color 0.2s;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
+/* Tipografía general */
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: #222;
+    background-color: #2c2c2c; /* Gris oscuro */
 }
-.btn-back:hover {
-    background: #218838;
-    color: #fff;
-}
-/* Centrar el título principal */
-h2 {
+
+/* Títulos grandes */
+h2, .h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #0d6efd;
     text-align: center;
     margin-bottom: 32px;
 }
-body {
-    background-color: #2c2c2c; /* Gris oscuro */
-    font-family: Arial, sans-serif;
-    color: #f8f9fa; /* Letras gris muy claro/blanco */
+
+/* Botones principales */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: 24px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #28a745 60%, #218838 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 18px;
+}
+.btn-back:hover {
+    background: linear-gradient(90deg, #218838 60%, #28a745 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px #0003;
+    transform: translateY(-2px) scale(1.04);
+}
+.btn-secondary {
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 24px;
+    padding: 8px 22px;
+}
+.btn-danger {
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 7px 18px;
+}
+
+/* Menú superior */
+.navbar {
+    font-size: 1.1rem;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-weight: 500;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.nav-link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 form {
@@ -42,12 +80,29 @@ form {
     color: #f8f9fa; /* Letras gris muy claro/blanco */
 }
 label {
-    font-weight: bold;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.08rem;
     margin-bottom: 6px;
     display: block;
-    color: #f8f9fa;
+    color: #28a745;
+    letter-spacing: 0.5px;
 }
 input[type="text"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+    font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.05rem;
+    color: #222;
+    background: #f8f9fa;
+    border: 1.5px solid #28a745;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px #0001;
+}
 input[type="number"],
 textarea {
     width: 100%;

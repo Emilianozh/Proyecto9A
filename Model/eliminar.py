@@ -6,7 +6,9 @@ def eliminar_articulo():
         id_articulo = request.form.get('id_articulo')
         connection = get_db_connection()
         with connection.cursor() as cursor:
-            # Eliminar primero de Costos si existe relación
+            # Eliminar primero las compras relacionadas
+            cursor.execute('DELETE FROM Compras WHERE id_articulo = %s', (id_articulo,))
+            # Eliminar de Costos si existe relación
             cursor.execute('DELETE FROM Costos WHERE id_articulo = %s', (id_articulo,))
             # Luego eliminar de Articulo
             cursor.execute('DELETE FROM Articulo WHERE id_articulo = %s', (id_articulo,))

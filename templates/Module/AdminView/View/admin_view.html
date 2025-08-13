@@ -57,7 +57,7 @@
                             <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-9.439 9.439a.5.5 0 0 1-.168.11l-4 1.5a.5.5 0 0 1-.65-.65l1.5-4a.5.5 0 0 1 .11-.168l9.439-9.439zm.708-.708a1.5 1.5 0 0 0-2.121 0l-9.439 9.439a1.5 1.5 0 0 0-.329.504l-1.5 4A1.5 1.5 0 0 0 2.5 16a1.5 1.5 0 0 0 .504-.329l4-1.5a1.5 1.5 0 0 0 .504-.329l9.439-9.439a1.5 1.5 0 0 0 0-2.121l-2.292-2.292z"/>
                         </svg>
                     </button>
-                    <form action="/eliminar" method="POST" style="display:inline;">
+                    <form action="/eliminar" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este artículo? Se eliminarán también todas las compras relacionadas. Esta acción no se puede deshacer.')">
                         <input type="hidden" name="id_articulo" value="{{ articulo.id_articulo }}">
                         <button type="submit" class="icon-btn delete" title="Eliminar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">

@@ -40,7 +40,7 @@
             <div class="col-lg-8">
                 <!-- Rating box fuera del card -->
                 <div class="rating-box mb-4">
-                    <form id="ratingForm" onsubmit="enviarRating(event)">
+                    <form id="ratingForm" data-articulo-id="{{ articulo.id_articulo }}" onsubmit="enviarRating(event)">
                         <label class="form-label mb-1 fs-5">Califica este artículo:</label><br>
                         <span id="estrellas" style="font-size:2rem;">
                             {% for i in range(1,6) %}
@@ -52,11 +52,10 @@
                         <div id="comentarioError" class="text-danger mt-1" style="display:none;"></div>
                         <button type="submit" class="btn btn-warning ms-2 mt-2">Enviar</button>
                     </form>
-                    {% if rating_info.total > 0 %}
                     <div class="mt-4">
                         <div class="mb-2">
                             <span class="fw-bold">Promedio: </span>
-                            <span class="text-warning" style="font-size:1.5rem;">{{ '%.1f' % rating_info.promedio }}</span>
+                            <span class="text-warning" style="font-size:1.5rem;">{{ '%.1f' % rating_info.promedio if rating_info.total > 0 else '0.0' }}</span>
                             <span class="text-muted">/ 5</span>
                             <span class="ms-2">({{ rating_info.total }} calificaciones)</span>
                         </div>
@@ -64,21 +63,21 @@
                         <div class="d-flex align-items-center mb-1">
                             <span style="width:2.5rem;">{{ i }} <i class="bi bi-star-fill text-warning"></i></span>
                             <div class="progress flex-grow-1 mx-2" style="height: 1.1rem;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: {% if rating_info.total > 0 %}{{ (distribucion[i] / rating_info.total * 100) | round(1) }}%{% else %}0%{% endif %};"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ (distribucion[i] / rating_info.total * 100) | round(1) if rating_info.total > 0 else 0 }}%;"></div>
                             </div>
-                            <span style="width:2.5rem;">{{ distribucion[i] }}</span>
+                            <span style="width:2.5rem;">{{ distribucion[i] if rating_info.total > 0 else 0 }}</span>
                         </div>
                         {% endfor %}
+                        {% if rating_info.total == 0 %}
+                        <div class="mt-4 text-muted">Aún no hay calificaciones para este artículo.</div>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <div class="mt-4 text-muted">Aún no hay calificaciones para este artículo.</div>
-                    {% endif %}
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="card h-100">
                     <div class="card-header bg-light fw-bold">Comentarios recientes</div>
-                    <div class="card-body overflow-auto" style="max-height: 400px;">
+                    <div class="card-body overflow-auto comentarios-scroll" style="max-height: 400px;">
                         {% if comentarios and comentarios|length > 0 %}
                             {% for c in comentarios %}
                             <div class="mb-3 border-bottom pb-2">
@@ -102,20 +101,9 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Pasa el id_articulo al form para el JS externo
-        document.addEventListener('DOMContentLoaded', function() {
-            var form = document.getElementById('ratingForm');
-            if(form) {
-                form.dataset.articuloId = "{{ articulo.id_articulo }}";
-            }
-        });
-    </script>
+    <!-- JS movido a static/UserView/JS/detalle_articulo.js -->
     <script src="/static/UserView/JS/detalle_articulo.js"></script>
-    <script>
-    if (window.performance && window.performance.navigation.type === 2) {
-        window.location.reload();
-    }
-    </script>
+    <!-- JS movido a static/UserView/JS/detalle_articulo.js -->
+</body>
 </body>
 </html>

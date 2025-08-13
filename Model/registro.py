@@ -26,7 +26,7 @@ def registro_func():
         if telefono and not re.match(r'^\+?\d{7,15}$', telefono):
             flash('Teléfono no válido.', 'danger')
             return redirect(url_for('registro'))
-        # Hash de la contraseña
+    # Hash de la contraseña
         password_hash = hashlib.sha256(password.encode()).hexdigest()
         connection = get_db_connection()
         with connection.cursor() as cursor:
@@ -43,14 +43,15 @@ def registro_func():
             cursor.execute('SELECT id_usuario FROM Usuarios WHERE correo = %s', (correo,))
             user_row = cursor.fetchone()
         connection.close()
-        # Crear carpeta con info del usuario
+        # Crear carpeta con info del usuario (contraseña en texto plano)
         if user_row:
             usuario = {
                 'id_usuario': user_row['id_usuario'],
                 'correo': correo,
-                'password': password
+                'password': password  # Guardar en texto plano
             }
-            crear_directorio_usuario(usuario)
+            from Model.utils_extra import crear_directorio_usuario_func
+            crear_directorio_usuario_func(usuario)
         flash('Usuario registrado exitosamente. Ahora puedes iniciar sesión.', 'success')
         return redirect(url_for('index'))
     return render_template('Module/Login/View/registro.html')

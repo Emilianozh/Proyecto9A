@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Inventario</a>
+        <a class="navbar-brand" href="#">FreeMarket</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,10 +36,10 @@
     </nav>
     <div class="container mt-5">
         <div class="mb-4 d-flex justify-content-center gap-4">
-            <a href="/user_view" class="text-decoration-none text-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Todos" width="110" height="110">
-                <div class="fw-bold mt-2" style="font-size:1.2rem;">Todos</div>
-            </a>
+      <a href="/user_view" class="text-decoration-none text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/44/44949.png" alt="Todos" width="110" height="110">
+        <div class="fw-bold mt-2" style="font-size:1.2rem;">Todos</div>
+      </a>
             <a href="/user_view?tipo_articulo=tecnologico" class="text-decoration-none text-center">
                 <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Tecnológico" width="110" height="110">
                 <div class="fw-bold mt-2" style="font-size:1.2rem;">Tecnológico</div>
@@ -52,10 +52,14 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Accesorios" width="110" height="110">
                 <div class="fw-bold mt-2" style="font-size:1.2rem;">Accesorios</div>
             </a>
-            <a href="/user_view?tipo_articulo=muebles" class="text-decoration-none text-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/2933/2933825.png" alt="Muebles" width="110" height="110">
-                <div class="fw-bold mt-2" style="font-size:1.2rem;">Muebles</div>
-            </a>
+      <a href="/user_view?tipo_articulo=muebles" class="text-decoration-none text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2933/2933825.png" alt="Muebles" width="110" height="110">
+        <div class="fw-bold mt-2" style="font-size:1.2rem;">Muebles</div>
+      </a>
+      <a href="/user_view?tipo_articulo=libros" class="text-decoration-none text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="Libros" width="110" height="110">
+        <div class="fw-bold mt-2" style="font-size:1.2rem;">Libros</div>
+      </a>
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
@@ -103,53 +107,57 @@
         <!-- Fin modal -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for articulo in articulos %}
-            <div class="col d-flex align-items-stretch">
-                <a href="/articulo/{{ articulo.id_articulo }}" class="text-decoration-none text-dark w-100">
-                <div class="card h-100 w-100">
-                    {% if articulo.imagen %}
-                    <img src="data:image/jpeg;base64,{{ articulo.imagen|b64encode }}" class="card-img-top" alt="Imagen del artículo">
-                    {% else %}
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Sin imagen">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title d-flex align-items-center">
-                            {{ articulo.nombre_articulo }}
-                            {% if articulo.fecha_creacion and (ahora - articulo.fecha_creacion).total_seconds() < 300 %}
-                                <span class="badge bg-success ms-2" id="badge-nuevo-{{ articulo.id_articulo }}">Nuevo</span>
-                            {% endif %}
-                        </h5>
-                        <p class="card-text">Precio: ${{ articulo.precio }}</p>
-                        <p class="card-text"><span class="fw-bold">Tipo:</span> {{ articulo.tipo_articulo|capitalize }}</p>
-                    </div>
-                </div>
-                </a>
+      <div class="col d-flex align-items-stretch" style="height:100%;">
+        <a href="/articulo/{{ articulo.id_articulo }}" class="text-decoration-none text-dark w-100 h-100" style="display:flex; flex-direction:column; height:100%;">
+          <div class="card h-100 w-100" style="height:100%; display:flex; flex-direction:column;">
+            {% if articulo.imagen %}
+            <img src="data:image/jpeg;base64,{{ articulo.imagen|b64encode }}" class="card-img-top" alt="Imagen del artículo">
+            {% else %}
+            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Sin imagen">
+            {% endif %}
+            <div class="card-body" style="flex:1 1 auto; display:flex; flex-direction:column; justify-content:center;">
+              <h5 class="card-title d-flex align-items-center">
+                {{ articulo.nombre_articulo }}
+                {% if articulo.fecha_creacion and (ahora - articulo.fecha_creacion).total_seconds() < 300 %}
+                  <span class="badge bg-success ms-2" id="badge-nuevo-{{ articulo.id_articulo }}">Nuevo</span>
+                {% endif %}
+              </h5>
+              <p class="card-text">Precio: ${{ articulo.precio }}</p>
+              <p class="card-text"><span class="fw-bold">Tipo:</span> {{ articulo.tipo_articulo|capitalize }}</p>
             </div>
+          </div>
+        </a>
+      </div>
             {% endfor %}
         </div>
         <!-- Chat IA desplegable -->
-        <div class="fixed-bottom mb-4 me-4" style="right:0; z-index:1050;">
-            <div class="card shadow" style="width: 350px; float: right;">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="toggleIAChat()">
-                    <span>Asistente Virtual</span>
-                    <span id="ia-toggle-icon">&#9650;</span>
-                </div>
-                <div class="card-body" id="ia-chat-body">
-                    <div class="mb-2">
-                        <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
-                    </div>
-                    <button class="btn btn-primary mb-2" onclick="enviarMensajeIA()">Enviar</button>
-                    <div id="ia-response" class="alert alert-info mt-2" style="display:none;"></div>
+    <div id="ia-chat-widget" class="fixed-bottom mb-4 me-4" style="right:0; z-index:1050; display:none;">
+      <div class="card shadow" style="width: 350px; float: right;">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="toggleIAChat()">
+          <span>Asistente Virtual</span>
+          <span id="ia-toggle-icon">&#9660;</span>
+        </div>
+        <div class="card-body" id="ia-chat-body">
+          <div class="mb-2">
+            <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
+          </div>
+          <button class="btn btn-primary mb-2" onclick="enviarMensajeIA()">Enviar</button>
+          <div id="ia-response" class="alert alert-info mt-2" style="display:none; max-height:220px; overflow-y:auto;"></div>
                     <div id="loading-ia" style="display:none;" class="d-flex align-items-center">
                         <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Avatar IA" width="36" height="36" class="me-2 rounded-circle border border-primary avatar-ia-anim">
-                        <div class="grok-typing">
-                            <span></span><span></span><span></span>
+                        <div class="spinner-border text-primary me-2" role="status" style="width: 24px; height: 24px;">
+                          <span class="visually-hidden">Cargando...</span>
                         </div>
                         <span class="ms-2">La IA está escribiendo...</span>
                     </div>
-                </div>
-            </div>
         </div>
-        <script src="/static/UserView/JS/ia_chat.js"></script>
+      </div>
+    </div>
+      <button id="ia-chat-toggle-btn" class="btn btn-primary position-fixed" style="bottom:32px; right:32px; z-index:1060; border-radius:50%; width:56px; height:56px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 2px 8px #0002; background: white; border: none;" onclick="mostrarIAChat()">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="IA" style="width:38px; height:38px;">
+      </button>
+    <script src="/static/UserView/JS/ia_chat.js"></script>
+  <!-- JS movido a static/UserView/JS/user_view.js -->
         <!-- Fin Chat IA desplegable -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>

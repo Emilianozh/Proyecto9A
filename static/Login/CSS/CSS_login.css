@@ -1,11 +1,62 @@
-a h2, h2.text-center {
-    color: #fff !important;
+
+/* Tipografía general */
+body {
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222;
+  background-color: lab(23.52% 0 0) !important;
 }
 
-.btn-color{
-  background-color: hsl(0, 0%, 17%);
-  color: #fff;
-  
+/* Títulos grandes */
+h2, .h2, h2.text-center {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #0d6efd !important;
+}
+
+/* Botones principales */
+.btn-success, .btn-primary, .btn-color {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 10px 28px;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+  background-color: #28a745 !important;
+  color: #fff !important;
+  border: none;
+}
+.btn.btn-color:hover, .btn-color:hover {
+  background-color: #218838 !important;
+  color: #fff !important;
+}
+.btn-secondary {
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 24px;
+  padding: 8px 22px;
+}
+.btn-danger {
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 7px 18px;
+}
+
+/* Menú superior */
+.navbar {
+  font-size: 1.1rem;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 500;
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.nav-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .profile-image-pic{
@@ -14,25 +65,8 @@ a h2, h2.text-center {
   object-fit: cover;
 }
 
-
-
 .cardbody-color{
   background-color: #b0b3b8 !important;
-}
-
-body {
-    background-color: lab(23.52% 0 0) !important;
-}
-
-/* Botón de login verde */
-.btn.btn-color, .btn-color {
-    background-color: #28a745 !important;
-    color: #fff !important;
-    border: none;
-}
-.btn.btn-color:hover, .btn-color:hover {
-    background-color: #218838 !important;
-    color: #fff !important;
 }
 
 a{

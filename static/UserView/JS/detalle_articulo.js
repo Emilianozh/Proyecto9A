@@ -1,3 +1,9 @@
+// JS movido desde detalle_articulo.html
+// Eliminar sobreescritura del dataset.articuloId para usar el valor del HTML
+
+if (window.performance && window.performance.navigation.type === 2) {
+    window.location.reload();
+}
 function agregarAlCarrito(idArticulo) {
     var cantidad = document.getElementById('cantidad').value;
     fetch('/agregar_carrito', {
